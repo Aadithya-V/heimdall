@@ -14,7 +14,7 @@ import (
 var h *heimdall.Heimdall
 
 func main() {
-	var err error
+	var err error 
 
 	// Option 1: Zero-config (SQLite + in-memory cache)
 	// Just works out of the box - creates heimdall.db automatically
