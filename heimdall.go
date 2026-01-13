@@ -132,12 +132,6 @@ func (h *Heimdall) RegisterSession(
 		result.ActiveSessions[i] = storeToSession(s)
 	}
 
-	// Check concurrent session limit
-	if concurrentLimit > 0 && len(activeSessions) >= concurrentLimit {
-		result.LimitExceeded = true
-		return result, nil
-	}
-
 	// Check for new location
 	if len(activeSessions) > 0 {
 		latestSession := activeSessions[0] // Already sorted by created_at desc
@@ -153,6 +147,12 @@ func (h *Heimdall) RegisterSession(
 			result.IsNewLocation = true
 			result.PreviousLocation = &prevLocation
 		}
+	}
+
+	// Check concurrent session limit
+	if concurrentLimit > 0 && len(activeSessions) >= concurrentLimit {
+		result.LimitExceeded = true
+		return result, nil
 	}
 
 	// Create and save the new session
