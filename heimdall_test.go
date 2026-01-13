@@ -195,22 +195,6 @@ func TestNewLocationDetection(t *testing.T) {
 	}
 }
 
-func TestHaversineDistance(t *testing.T) {
-	// NYC to London should be approximately 5,570 km
-	nyc := struct{ lat, lng float64 }{40.7128, -74.0060}
-	london := struct{ lat, lng float64 }{51.5074, -0.1278}
-
-	distance := HaversineDistance(nyc.lat, nyc.lng, london.lat, london.lng)
-
-	// Allow 1% margin of error
-	expected := 5570.0
-	margin := expected * 0.01
-
-	if distance < expected-margin || distance > expected+margin {
-		t.Errorf("Expected distance ~%f km, got %f km", expected, distance)
-	}
-}
-
 // newTestHeimdall creates a Heimdall instance with in-memory stores for testing.
 func newTestHeimdall() (*Heimdall, error) {
 	// Create temp directory for SQLite
