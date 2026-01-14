@@ -53,6 +53,10 @@ func New(cfg Config) (*Heimdall, error) {
 		h.geoip = geoip
 	}
 
+	if cfg.NewLocationThresholdKM <= 0 {
+		h.config.NewLocationThresholdKM = 100
+	}
+
 	return h, nil
 }
 
